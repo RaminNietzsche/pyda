@@ -1,9 +1,17 @@
 #!/usr/bin/env python3
 
 import sys
-from distro import id as linux_distro
 from urllib.request import urlopen, Request
 from html.parser import HTMLParser
+
+def linux_distro():
+    with open("/etc/os-release") as f:
+        d = {}
+        for line in f:
+            k,v = line.rstrip().split("=")
+            d[k] = v
+    return d['ID']
+    
 
 class MyHTMLParser(HTMLParser):
 
